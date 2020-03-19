@@ -5,7 +5,7 @@ import sys
 ############################################################
 # First version
 ############################################################
-def making_change(amount, denominations):
+def making_changeX(amount, denominations):
 
     def recur_helper(n, branch_control):
         if n < 0:
@@ -42,7 +42,27 @@ def making_change(amount, denominations):
     return recur_helper(amount, 50)
 
 
+############################################################
+# Second version
+############################################################
+def making_change(amount, denominations):
 
+    sorted_denom = denominations.copy()
+    sorted_denom.sort()
+
+    def recur_helper(n, branch_control):
+        if n < 0:
+            return 0
+        elif n == 0:
+            return 1
+
+        sum = 0
+        for i in range(len(branch_control)):
+            sum += recur_helper(n - branch_control[i], branch_control[0:i + 1])
+
+        return sum
+
+    return recur_helper(amount, sorted_denom)
 
 
 
